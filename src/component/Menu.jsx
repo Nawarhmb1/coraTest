@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import ConfirmSignOut from './ConfirmSignOut';
@@ -30,7 +29,7 @@ const Menu = () => {
             onClick={() => navigate('/settings')} 
             style={{ padding: '10px 20px' }}
           >
-        Setting  
+            Settings  
           </button>
         </div>
         <div style={{ 
@@ -41,13 +40,19 @@ const Menu = () => {
           }}>
           <ul style={{ listStyleType: 'none', padding: 0 }}>
             <li>
-              <button onClick={() => alert('option 1 has been selected')} style={{ padding: '10px', margin: '5px' }}>
-                Option  1
+              <button 
+                onClick={() => navigate('/services')} 
+                style={{ padding: '10px', margin: '5px' }}
+              >
+                Services
               </button>
             </li>
             <li>
-              <button onClick={() => alert('option 2 has been selected')} style={{ padding: '10px', margin: '5px' }}>
-                Option 2
+              <button 
+                onClick={() => navigate('/booking')} 
+                style={{ padding: '10px', margin: '5px' }}
+              >
+                Booking
               </button>
             </li>
             <li>
