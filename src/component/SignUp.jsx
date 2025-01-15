@@ -53,6 +53,17 @@ const SignUp = () => {
           />
         </div>
         <div>
+          <label htmlFor="phone">Phone:</label>
+          <input
+            type="text"
+            id="phone"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+            style={{ width: '100%', marginBottom: '10px', padding: '8px' }}
+          />
+        </div>
+        <div>
           <label htmlFor="email">Email:</label>
           <input
             type="email"
