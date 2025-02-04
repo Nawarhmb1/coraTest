@@ -8,8 +8,8 @@ import Menu from './component/Menu';
 import Settings from './component/Settings'; 
 import ConfirmSignOut from './component/ConfirmSignOut'; 
 import Privacy from './component/Privacy'; 
-import Services from './component/Services'; // استيراد صفحة الخدمات
-import Booking from './component/Booking'; // استيراد صفحة الحجز
+import Services from './component/Services'; 
+import Booking from './component/Booking'; 
 import './App.css';
 
 function App() {
@@ -25,8 +25,8 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/confirm-signout" element={<ConfirmSignOut />} />
         <Route path="/privacy" element={<Privacy />} /> 
-        <Route path="/services" element={<Services />} /> {/* إضافة مسار لصفحة الخدمات */}
-        <Route path="/booking" element={<Booking />} /> {/* إضافة مسار لصفحة الحجز */}
+        <Route path="/services" element={<Services />} /> 
+        <Route path="/booking" element={<Booking />} /> 
       </Routes>
     </Router>
   );

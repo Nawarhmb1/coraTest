@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState('');
@@ -7,23 +7,51 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const navigate = useNavigate(); 
+  const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);  
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (password !== confirmPassword) {
+
+     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
 
-    console.log('First Name:', firstName);
-    console.log('Last Name:', lastName);
-    console.log('Email:', email);
-    console.log('Password:', password);
-    
-    
-    navigate('/success');
+     setIsSubmitting(true);
+
+     const formData = new FormData();
+    formData.append("action", "register");
+    formData.append("firstname", firstName);
+    formData.append("lastname", lastName);
+    formData.append("email", email);
+    formData.append("password", password);
+
+     const url = "https://script.google.com/macros/s/AKfycbxvWixa4eeqNU0bWcGA4QqLj-xhF2nNPHoReP18NV7IL7KdkdWf7-QJBKm1LV3Y9_n0/exec";
+
+    try {
+       const response = await fetch(url, {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (result.status === "success") {
+        setMessage("User registered successfully!");
+        setTimeout(() => {
+          navigate('/success');  
+        }, 2000);
+      } else {
+        setMessage(result.message || "Something went wrong.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage("An error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);  
+    }
   };
 
   return (
@@ -96,8 +124,26 @@ const SignUp = () => {
             style={{ width: '100%', marginBottom: '10px', padding: '8px' }}
           />
         </div>
-        <button type="submit" style={{ width: '100%', padding: '10px' }}>Sign Up</button>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          style={{
+            width: '100%',
+            padding: '10px',
+            backgroundColor: isSubmitting ? '#ccc' : '#4CAF50',
+            color: 'white',
+            border: 'none',
+            cursor: isSubmitting ? 'not-allowed' : 'pointer',
+          }}
+        >
+          {isSubmitting ? 'Submitting...' : 'Sign Up'}
+        </button>
       </form>
+      {message && (
+        <p style={{ textAlign: 'center', marginTop: '10px', color: message.includes('success') ? 'green' : 'red' }}>
+          {message}
+        </p>
+      )}
       <p style={{ textAlign: 'center', marginTop: '10px' }}>
         <a 
           onClick={() => navigate('/login')} 
